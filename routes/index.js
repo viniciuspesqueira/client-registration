@@ -34,9 +34,9 @@ router.post('/new', async (req, res) => {
   const name = req.body.name;
   const age =! req.body.age ? null:
   parseInt(req.body.age);
-  const state = req.body.state;
+  const UF = req.body.UF;
   try {
-    await global.db.insertClient({name, age, state});
+    await global.db.insertClient({name, age, UF});
     res.redirect('/?new=true');
   }
   catch(error) {
@@ -49,10 +49,10 @@ router.post('/edit/:idclient', async (req, res) => {
   const idclient = parseInt(req.params.idclient);
   const name = req.body.name;
   const age =! req.body.age ? null : parseInt(req.body.age);
-  const state = req.body.state;
+  const UF = req.body.UF;
 
   try {
-    await global.db.updateClient(idclient, {name, age, state});
+    await global.db.updateClient(idclient, {name, age, UF});
     res.redirect('/?edit=true');
   } catch(error) {
     res.redirect('/?erro=' + error);

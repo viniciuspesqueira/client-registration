@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://bootswatch.com/5/cyborg/bootstrap.min.css" rel="stylesheet" />
-    <title>CRUD</title>
+    <title>Add new client</title>
 </head>
 <body>
+    <div style="margin: 20px;" class="container">
     <h1><%=title%></h1>
     <p>Fill in the data for safe a client</p>
     <div  id="alertRegister" class="alert alert-danger col-sm-6">
@@ -20,13 +21,36 @@
             <label class="control-label">Age: <input type="number" id="age" name="age" value="<%= result.age %>" class="form-control"/></label>
         </div>
         <div class="form-group">
-            <label class="control-label">State: 
-                <select name="state" class="form-control">
+            <label class="control-label">UF: 
+                <select name="UF" class="form-control">
                     <% const s = "selected" %>
-                    <option <% if (result.state === "BA") { %><%= s %><% } %>>BA</option>
-                    <option <% if (result.state === "PE") { %><%= s %><% } %>>PE</option>
-                    <option <% if (result.state === "RS") { %><%= s %><% } %>>RS</option>
-                    <option <% if (result.state === "PA") { %><%= s %><% } %>>PA</option>
+                    <option <% if (result.UF === "BA") { %><%= s %><% } %>>BA</option>
+                    <option <% if (result.UF === "PE") { %><%= s %><% } %>>PE</option>
+                    <option <% if (result.UF === "RS") { %><%= s %><% } %>>RS</option>
+                    <option <% if (result.UF === "PA") { %><%= s %><% } %>>PA</option>
+                    <option <% if (result.UF === "CE") { %><%= s %><% } %>>CE</option>
+                    <option <% if (result.UF === "MA") { %><%= s %><% } %>>MA</option>
+                    <option <% if (result.UF === "PI") { %><%= s %><% } %>>PI</option>
+                    <option <% if (result.UF === "PA") { %><%= s %><% } %>>PA</option>
+                    <option <% if (result.UF === "SE") { %><%= s %><% } %>>SE</option>
+                    <option <% if (result.UF === "AL") { %><%= s %><% } %>>AL</option>
+                    <option <% if (result.UF === "PB") { %><%= s %><% } %>>PB</option>
+                    <option <% if (result.UF === "RN") { %><%= s %><% } %>>RN</option>
+                    <option <% if (result.UF === "AM") { %><%= s %><% } %>>AM</option>
+                    <option <% if (result.UF === "RO") { %><%= s %><% } %>>RO</option>
+                    <option <% if (result.UF === "RR") { %><%= s %><% } %>>RR</option>
+                    <option <% if (result.UF === "AP") { %><%= s %><% } %>>AP</option>
+                    <option <% if (result.UF === "TO") { %><%= s %><% } %>>TO</option>
+                    <option <% if (result.UF === "MT") { %><%= s %><% } %>>MT</option>
+                    <option <% if (result.UF === "MS") { %><%= s %><% } %>>MS</option>
+                    <option <% if (result.UF === "GO") { %><%= s %><% } %>>GO</option>
+                    <option <% if (result.UF === "DF") { %><%= s %><% } %>>DF</option>
+                    <option <% if (result.UF === "SP") { %><%= s %><% } %>>SP</option>
+                    <option <% if (result.UF === "MG") { %><%= s %><% } %>>MG</option>
+                    <option <% if (result.UF === "ES") { %><%= s %><% } %>>ES</option>
+                    <option <% if (result.UF === "RJ") { %><%= s %><% } %>>RJ</option>
+                    <option <% if (result.UF === "PR") { %><%= s %><% } %>>PR</option>
+                    <option <% if (result.UF === "SC") { %><%= s %><% } %>>SC</option>
                 </select>
             </label>
             <div class="form-group">
@@ -37,5 +61,7 @@
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/script-new.js"></script>
+    </div>
+    
 </body>
 </html>

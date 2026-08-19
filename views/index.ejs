@@ -7,7 +7,7 @@
     <link href="https://bootswatch.com/5/cyborg/bootstrap.min.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="container">
+    <div style="margin: 20px;" class="container">
       <h1>Client Listening</h1>
       <p>Clients already registered in system</p>
       <div id="alertSuccess" class="alert alert-success">
@@ -18,7 +18,7 @@
           <tr>
             <td>Name</td>
             <td>Age</td>
-            <td>State</td>
+            <td>UF</td>
             <td>Actions</td>
           </tr>
         </thead>
@@ -41,7 +41,7 @@
                   <%=client.age%>
                 </td>
                 <td>
-                  <%=client.state%>
+                  <%=client.UF%>
                 </td>
                 <td>
                   <a href="/edit/<%=client.idclient%>" class="btn btn-info">edit</a>
