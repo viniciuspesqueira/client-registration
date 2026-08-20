@@ -8,7 +8,7 @@ async function connect() {
     host: "localhost",
     port: 3306,
     // database user
-    user: process.env.USER,
+    user: process.env.USER_APP,
     // user password
     password: process.env.PASSWORD,
     database: "crud_app",
