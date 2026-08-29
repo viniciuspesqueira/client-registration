@@ -14,7 +14,8 @@ if(location.href.indexOf('delete=true') != -1) {
       document.getElementById("alertErro").style.display = "none";
     } else {
       if(location.href.indexOf('erro') != -1) {
-      document.getElementById("alertErro").innerHTML = `An error ocurred!`;
+      document.getElementById("alertErro").innerHTML =
+        `An error ocurred! ${new URLSearchParams(location.search).get('erro')}`;
       showMessage("alertErro");
       document.getElementById("alertSuccess").style.display = "none";
       } else {
