@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../db');
 
 /* GET home page. */
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
-    const docs = await global.db.selectClients();
+    const docs = await db.selectClients();
     console.log(docs);
     res.render('index', {docs});
     console.log("Index renderizado!");
   }
   catch(error) {
-    res.redirect('/?erro=' + error);
+    next(error);
   }
 });
 
@@ -22,7 +23,7 @@ router.get('/new', (req, res, next) => {
 router.get('/edit/:idclient', async(req, res) => {
   const idclient = parseInt(req.params.idclient);
   try {
-    const result = await global.db.selectClient(idclient);
+    const result = await db.selectClient(idclient);
     res.render('new', {title: 'Client Edition', result,action: '/edit/' + idclient});
   }
   catch(error) {
@@ -36,7 +37,7 @@ router.post('/new', async (req, res) => {
   parseInt(req.body.age);
   const UF = req.body.UF;
   try {
-    await global.db.insertClient({name, age, UF});
+    await db.insertClient({name, age, UF});
     res.redirect('/?new=true');
   }
   catch(error) {
@@ -52,7 +53,7 @@ router.post('/edit/:idclient', async (req, res) => {
   const UF = req.body.UF;
 
   try {
-    await global.db.updateClient(idclient, {name, age, UF});
+    await db.updateClient(idclient, {name, age, UF});
     res.redirect('/?edit=true');
   } catch(error) {
     res.redirect('/?erro=' + error);
@@ -63,7 +64,7 @@ router.post('/edit/:idclient', async (req, res) => {
 router.get('/delete/:idclient', async (req, res) => {
   const idclient = parseInt(req.params.idclient);
   try {
-    await global.db.deleteClient(idclient);
+    await db.deleteClient(idclient);
     res.redirect('/?delete=true');
   }
   catch(error) {
