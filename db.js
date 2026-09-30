@@ -9,9 +9,6 @@ const REQUIRED_ENV = [
   "MYSQL_DATABASE",
 ]
 
-// A Aiven só aceita conexão via TLS. Com MYSQL_SSL_CA (o ca.pem do projeto,
-// em PEM ou base64) a cadeia é validada; sem ele a conexão ainda é
-// criptografada, mas sem verificar o certificado do servidor.
 function sslOptions() {
   const ca = process.env.MYSQL_SSL_CA
   if (!ca) return { rejectUnauthorized: false }
@@ -22,12 +19,7 @@ function sslOptions() {
   return { ca: pem, rejectUnauthorized: true }
 }
 
-// Em serverless cada cold start reavalia o módulo, mas invocações "quentes"
-// reaproveitam o processo: guardar o pool no global evita abrir uma conexão
-// nova a cada request.
-function getPool() {
-  if (global.pool) return global.pool
-
+function connectionConfig() {
   const missing = REQUIRED_ENV.filter((name) => !process.env[name])
   if (missing.length > 0) {
     throw new Error(
@@ -35,15 +27,28 @@ function getPool() {
     )
   }
 
-  global.pool = mysql.createPool({
+  return {
     host: process.env.MYSQL_HOST,
     port: Number(process.env.MYSQL_PORT),
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
     ssl: sslOptions(),
+  }
+}
+
+// Em serverless cada cold start reavalia o módulo, mas invocações "quentes"
+// reaproveitam o processo: guardar o pool no global evita abrir uma conexão
+// nova a cada request.
+function getPool() {
+  if (global.pool) return global.pool
+
+  global.pool = mysql.createPool({
+    ...connectionConfig(),
     waitForConnections: true,
-    connectionLimit: 3,
+    connectionLimit: 1,
+    maxIdle: 1,
+    idleTimeout: 60000,
   })
 
   return global.pool
@@ -82,6 +87,7 @@ async function deleteClient(idclient) {
 }
 
 module.exports = {
+  connectionConfig,
   selectClients,
   insertClient,
   updateClient,
