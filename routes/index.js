@@ -38,10 +38,10 @@ function parseClient(body) {
   const age = body.age === "" || body.age == null ? null : Number(body.age)
 
   if (name.length < 2 || name.length > 120)
-    errors.push("Nome deve ter entre 2 e 120 caracteres.")
+    errors.push("The name must be between 2 and 120 characters long.")
   if (age !== null && (!Number.isInteger(age) || age < 0 || age > 130))
-    errors.push("Idade inválida.")
-  if (!UFS.includes(body.UF)) errors.push("UF inválida.")
+    errors.push("Invalid age.")
+  if (!UFS.includes(body.UF)) errors.push("Invalid state - UF.")
 
   return { errors, data: { name, age, UF: body.UF } }
 }
@@ -67,10 +67,16 @@ router.get('/edit/:idclient', async(req, res) => {
   const idclient = Number(req.params.idclient);
   if (!Number.isInteger(idclient)) return res.redirect("/?erro=1")
   try {
-    const result = await db.selectClient(idclient);
-    res.render('new', {title: 'Client Edition', result,action: '/edit/' + idclient});
+    const result = await db.selectClient(idclient)
+    if (!result.idclient) return res.redirect("/?erro=1")
+    res.render("new", {
+      title: "Client Edition",
+      result,
+      action: "/edit/" + idclient,
+    })
   }
   catch(error) {
+    console.error("Error editing client:", error)
     res.redirect('/?erro=1');
   }
 });
@@ -89,7 +95,7 @@ router.post('/new', async (req, res) => {
     res.redirect('/?new=true');
   }
   catch(error) {
-    console.error("Falha ao inserir cliente:", error)
+    console.error("Error inserting client:", error)
     res.redirect("/?erro=1")
   }
 });
@@ -109,7 +115,7 @@ router.post('/edit/:idclient', async (req, res) => {
     await db.updateClient(idclient, data);
     res.redirect('/?edit=true');
   } catch(error) {
-    console.error("Falha ao editar cliente:", error)
+    console.error("Failed to edit client:", error)
     res.redirect("/?erro=1")
   }
 })
@@ -124,7 +130,7 @@ router.post('/delete/:idclient', async (req, res) => {
     res.redirect('/?delete=true');
   }
   catch(error) {
-    console.error("Falha ao excluir cliente:", error)
+    console.error("Error deleting client:", error)
     res.redirect('/?erro=1');
   }
 })

@@ -1,18 +1,13 @@
 document.getElementById("alertRegister").style.display = "none";
 
     document.getElementById("frmRegister").onsubmit = (evt) => {
-        if(!document.querySelector('input[name="age"]').value) {
-            document.getElementById("alertRegister").innerHTML = `<strong>Erro!</strong> Age cannot be empty!`;
-            showMessage("alertRegister");
-            evt.preventDefault();
-        }
         if(!document.querySelector('input[name="name"]').value) {
-            document.getElementById("alertRegister").innerHTML = `<strong>Erro!</strong> Name cannot be empty!`;
+            document.getElementById("alertRegister").innerHTML = `<strong>Error!</strong> Name cannot be empty!`;
             showMessage("alertRegister");
             evt.preventDefault();
         } else {
             if(!isNaN(document.querySelector('input[name="name"]').value)) {
-            document.getElementById("alertRegister").innerHTML = `<strong>Erro!</strong> Name cannot be number!`;
+            document.getElementById("alertRegister").innerHTML = `<strong>Error!</strong> Name cannot be number!`;
             showMessage("alertRegister");
             evt.preventDefault();
             }
