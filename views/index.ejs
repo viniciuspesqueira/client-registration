@@ -8,7 +8,7 @@
   </head>
   <body>
     <div style="margin: 20px;" class="container">
-      <h1>Client Listening</h1>
+      <h1>Client List</h1>
       <p>Clients already registered in system</p>
       <div id="alertSuccess" class="alert alert-success">
       </div>
@@ -45,7 +45,9 @@
                 </td>
                 <td>
                   <a href="/edit/<%=client.idclient%>" class="btn btn-info">edit</a>
-                  <a href="/delete/<%=client.idclient%>" class="btn btn-danger" onclick="return confirm('Are you sure?')">x</a>
+                  <form action="/delete/<%= client.idclient %>" method="POST" class="d-inline js-delete-form" data-name="<%= client.name %>">
+                    <button type="submit" class="btn btn-danger">x</button>
+                  </form>
                 </td>
               </tr>
             <%})
@@ -55,6 +57,5 @@
       <a href="/new" class="btn btn-primary">Register client</a>
     </div>
     <script src="/js/script-index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

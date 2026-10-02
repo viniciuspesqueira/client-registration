@@ -13,6 +13,14 @@
     <div  id="alertRegister" class="alert alert-danger col-sm-6">
         <strong>Erro!</strong>
     </div>
+    <% if (typeof errors !== 'undefined' && errors.length) { %>
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+        <% errors.forEach(function(e) { %><li><%= e %></li><% }) %>
+        </ul>
+    </div>
+    <% } %>
+
     <form id="frmRegister" action="<%=action%>" method="POST" role="form" class="form-horizontal">
         <div class="form-group">
             <label class="control-label" for="name">Name: <input type="text" id="name" name="name" value="<%= result.name %>" class="form-control"/></label>
@@ -27,7 +35,7 @@
                     <option <% if (result.UF === "BA") { %><%= s %><% } %>>BA</option>
                     <option <% if (result.UF === "PE") { %><%= s %><% } %>>PE</option>
                     <option <% if (result.UF === "RS") { %><%= s %><% } %>>RS</option>
-                    <option <% if (result.UF === "PA") { %><%= s %><% } %>>PA</option>
+                    <option <% if (result.UF === "AC") { %><%= s %><% } %>>AC</option>
                     <option <% if (result.UF === "CE") { %><%= s %><% } %>>CE</option>
                     <option <% if (result.UF === "MA") { %><%= s %><% } %>>MA</option>
                     <option <% if (result.UF === "PI") { %><%= s %><% } %>>PI</option>
@@ -54,12 +62,11 @@
                 </select>
             </label>
             <div class="form-group">
-                <a class="btn btn-default" href="/">Cancell</a>
+                <a class="btn btn-secondary" href="/">Cancel</a>
                 <input type="submit" value="Save" class="btn btn-primary"/>
             </div>
         </div>
     </form>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/script-new.js"></script>
     </div>
     
