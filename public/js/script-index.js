@@ -15,7 +15,7 @@ if(location.href.indexOf('delete=true') != -1) {
     } else {
       if(location.href.indexOf('erro') != -1) {
       document.getElementById("alertErro").textContent =
-        `An error ocurred! ${new URLSearchParams(location.search).get('erro')}`;
+        "An error occurred. Please try again."
       showMessage("alertErro");
       document.getElementById("alertSuccess").style.display = "none";
       } else {
@@ -35,7 +35,7 @@ function showMessage(message) {
 
 document.querySelectorAll(".js-delete-form").forEach((form) => {
   form.addEventListener("submit", (evt) => {
-    if (!confirm(`Excluir ${form.dataset.name}?`)) {
+    if (!confirm(`Delete ${form.dataset.name}?`)) {
       evt.preventDefault()
     }
   })
